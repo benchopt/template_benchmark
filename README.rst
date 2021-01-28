@@ -7,8 +7,8 @@ This repo should be used with the following steps:
 1. Hit the `Use this template` button,
 2. Create the repo,
 3. Clone it on your computer,
-4. Run `python clean-template.py` script that will replace the necesary part
-   in the `README.rst` with your repo and org name.
+4. Run `python clean_template.py` script that will replace the necessary
+   part in the `README.rst` with your repo and org name.
 5. Remove this section and describe
 
 My BenchOpt Benchmark
