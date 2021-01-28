@@ -1,5 +1,6 @@
 Template for BenchOpt Benchmark repositories
 =============================================
+|Build Template|
 
 This repo should be used with the following steps:
 
@@ -7,8 +8,8 @@ This repo should be used with the following steps:
 2. Create the repo,
 3. Clone it on your computer,
 4. Run `python clean-template.py` script that will replace the necesary part
-  in the `README.rst` with your repo and org name.
-5. Remove this section and describe 
+   in the `README.rst` with your repo and org name.
+5. Remove this section and describe
 
 My BenchOpt Benchmark
 =====================
@@ -48,7 +49,9 @@ Apart from the problem, options can be passed to `benchopt run`, to restrict the
 
 Use `benchopt run -h` for more details about these options, or visit https://benchopt.github.io/api.html.
 
-.. |Build Status| image:: https://github.com/#ORG/#BENCHMARK_NAME/workflows/build/badge.svg
+.. |Build Template| image:: https://github.com/benchopt/template_benchmark/workflows/test/badge.svg
+   :target: https://github.com/benchopt/template_benchmark/actions
+.. |Build Status| image:: https://github.com/#ORG/#BENCHMARK_NAME/workflows/test/badge.svg
    :target: https://github.com/#ORG/#BENCHMARK_NAME/actions
 .. |Python 3.6+| image:: https://img.shields.io/badge/python-3.6%2B-blue
    :target: https://www.python.org/downloads/release/python-360/

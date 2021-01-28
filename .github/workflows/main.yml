@@ -1,4 +1,4 @@
-name: check-benchmark
+name: Test
 
 on:
   create:
