@@ -1,7 +1,6 @@
-name: check
-
+name: checks
 on:
-  create:
+  push:
     branches:
       - 'master'
     tags:
