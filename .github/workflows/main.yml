@@ -43,6 +43,7 @@ jobs:
       run: |
         eval "$(conda shell.bash hook)"
         conda activate base
+        python -c "import psutil"
         benchopt test . --env-name bench_test_env -vl
         benchopt test . --env-name bench_test_env -vl --skip-install
 
