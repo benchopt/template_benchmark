@@ -37,13 +37,21 @@ jobs:
         branch=${BENCHOPT_BRANCH##*:}
         pip install -U git+https://github.com/$user/benchopt@$branch
 
+    - name: Describe system
+      run: |
+        eval "$(conda shell.bash hook)"
+        conda activate base
+        echo "Conda$(conda --version)"
+        echo "Python $(python --version)"
+        python -c "import numpy; print("Numpy", numpy.__version__)"
+        python -c "import psutil; print("Psutil", psutil.__version__)"
+
     - name: Test
       env:
           BENCHOPT_DEBUG: 1
       run: |
         eval "$(conda shell.bash hook)"
         conda activate base
-        python -c "import psutil; print(psutil.__version__)"
         benchopt test . --env-name bench_test_env -vl
         benchopt test . --env-name bench_test_env -vl --skip-install
 
