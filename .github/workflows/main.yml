@@ -24,7 +24,7 @@ jobs:
 
     - name: Install dependencies
       env:
-        BENCHOPT_BRANCH: benchopt:master
+        BENCHOPT_BRANCH: tommoral:DBG_import_psutil
       run: |
         eval "$(conda shell.bash hook)"
         conda activate base
@@ -43,7 +43,7 @@ jobs:
       run: |
         eval "$(conda shell.bash hook)"
         conda activate base
-        python -c "import psutil"
+        python -c "import psutil; print(psutil.__version__)"
         benchopt test . --env-name bench_test_env -vl
         benchopt test . --env-name bench_test_env -vl --skip-install
 
