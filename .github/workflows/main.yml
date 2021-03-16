@@ -24,7 +24,7 @@ jobs:
 
     - name: Install dependencies
       env:
-        BENCHOPT_BRANCH: benchopt:main
+        BENCHOPT_BRANCH: benchopt:master
       run: |
         eval "$(conda shell.bash hook)"
         conda activate base
