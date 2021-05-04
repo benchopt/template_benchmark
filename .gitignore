@@ -1,7 +1,7 @@
 # Cache directories
-joblib
 .pytest_cache
 __pycache__
+__cache__
 *.egg-info
 .coverage
 **/outputs
