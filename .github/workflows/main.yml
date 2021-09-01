@@ -24,7 +24,7 @@ jobs:
     env:
       CONDA_ENV: 'test_env'
       VERSION_PYTHON: ${{ matrix.version_python }}
-      BENCHOPT_BRANCH: tommoral:ENH_per_solver_stop
+      BENCHOPT_BRANCH: benchopt:master
       BENCHOPT_DEBUG: 1
 
     defaults:
