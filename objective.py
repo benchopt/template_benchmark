@@ -12,6 +12,9 @@ class Objective(BaseObjective):
         self.fit_intercept = fit_intercept
 
     def set_data(self, X, y):
+        # The keyword arguments of this function are the keys of the `data`
+        # dict in the `get_data` function of the dataset.
+        # They are customizable.
         self.X, self.y = X, y
 
     def compute(self, beta):
