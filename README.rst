@@ -1,4 +1,4 @@
-Template for BenchOpt Benchmark repositories
+Template for Benchopt Benchmark repositories
 =============================================
 |Build Template|
 
@@ -11,11 +11,11 @@ This repo should be used with the following steps:
    part in the ``README.rst`` with your repo and org name.
 5. Remove this section and describe
 
-My BenchOpt Benchmark
+My Benchopt Benchmark
 =====================
 |Build Status| |Python 3.6+|
 
-BenchOpt is a package to simplify and make more transparent and
+Benchopt is a package to simplify and make more transparent and
 reproducible the comparisons of optimization algorithms.
 This benchmark is dedicated to solver of **describe your problem**:
 
