@@ -30,6 +30,4 @@ class Dataset(BaseDataset):
         # `data` holds the keyword arguments for the `set_data` method of the
         # objective.
         # They are customizable.
-        data = dict(X=X, y=y)
-
-        return self.n_features, data
+        return dict(X=X, y=y)
