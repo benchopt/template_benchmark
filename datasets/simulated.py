@@ -27,4 +27,7 @@ class Dataset(BaseDataset):
         X = rng.randn(self.n_samples, self.n_features)
         y = rng.randn(self.n_samples)
 
+        # `data` holds the keyword arguments for the `set_data` method of the
+        # objective.
+        # They are customizable.
         return dict(X=X, y=y)

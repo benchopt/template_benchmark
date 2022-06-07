@@ -12,6 +12,9 @@ class Solver(BaseSolver):
     parameters = {'use_acceleration': [False, True]}
 
     def set_objective(self, X, y, fit_intercept=False):
+        # The arguments of this function are the results of the
+        # `to_dict` method of the objective.
+        # They are customizable.
         self.X, self.y = X, y
         self.fit_intercept = fit_intercept
 
@@ -34,4 +37,7 @@ class Solver(BaseSolver):
         self.w = w
 
     def get_result(self):
+        # The outputs of this function are the arguments of the
+        # `compute` method of the objective.
+        # They are customizable.
         return self.w
