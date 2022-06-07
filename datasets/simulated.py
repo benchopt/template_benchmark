@@ -27,6 +27,4 @@ class Dataset(BaseDataset):
         X = rng.randn(self.n_samples, self.n_features)
         y = rng.randn(self.n_samples)
 
-        data = dict(X=X, y=y)
-
-        return self.n_features, data
+        return dict(X=X, y=y)

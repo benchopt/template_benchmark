@@ -1,15 +1,22 @@
-from benchopt import BaseObjective
+from benchopt import BaseObjective, safe_import_context
+
+# Protect import to allow manipulating objective without importing library
+# Useful for autocompletion and install commands
+with safe_import_context() as import_ctx:
+    import numpy as np
 
 
 class Objective(BaseObjective):
     name = "Ordinary Least Squares"
 
+    # All parameters 'p' defined here are available as 'self.p'
     parameters = {
         'fit_intercept': [False],
     }
 
-    def __init__(self, fit_intercept=False):
-        self.fit_intercept = fit_intercept
+    def get_one_solution(self):
+        # Return one solution. This should be compatible with 'self.compute'.
+        return np.zeros(self.X.shape[1])
 
     def set_data(self, X, y):
         self.X, self.y = X, y
