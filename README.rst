@@ -20,7 +20,7 @@ reproducible the comparisons of optimization algorithms.
 This benchmark is dedicated to solver of **describe your problem**:
 
 
-$$\\min_{\\omega} f(X, w)$$
+$$\\min_{w} f(X, w)$$
 
 
 where $n$ (or ``n_samples``) stands for the number of samples, $p$ (or ``n_features``) stands for the number of features and
