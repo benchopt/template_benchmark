@@ -4,7 +4,7 @@ Template for Benchopt Benchmark repositories
 
 This repo should be used with the following steps:
 
-1. Hit the `Use this template` button on the top of [this page](https://github.com/benchopt/template_benchmark),
+1. Hit the `Use this template` button on the top of `this page <https://github.com/benchopt/template_benchmark>`_,
 2. Use the form to create a new github repository with your benchmark name,
 3. Clone the newly created repository on your computer,
 4. Run ``python clean_template.py`` script that will remove instruction relative to
