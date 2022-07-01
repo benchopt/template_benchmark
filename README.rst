@@ -4,12 +4,13 @@ Template for Benchopt Benchmark repositories
 
 This repo should be used with the following steps:
 
-1. Hit the `Use this template` button,
-2. Create the repo,
-3. Clone it on your computer,
-4. Run ``python clean_template.py`` script that will replace the necessary
-   part in the ``README.rst`` with your repo and org name.
-5. Remove this section and describe
+1. Hit the `Use this template` button on the top of [this page](https://github.com/benchopt/template_benchmark),
+2. Use the form to create a new github repository with your benchmark name,
+3. Clone the newly created repository on your computer,
+4. Run ``python clean_template.py`` script that will remove instruction relative to
+   the template in ``README.rst`` and update it with your repo and org name.
+5. Edit the problem description in the ``README.rst``.
+6. Update ``objective.py`` and the files in ``datasets`` and ``solvers`` to create the benchmark.
 
 My Benchopt Benchmark
 =====================
