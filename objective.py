@@ -9,20 +9,25 @@ with safe_import_context() as import_ctx:
 class Objective(BaseObjective):
     name = "Ordinary Least Squares"
 
-    # All parameters 'p' defined here are available as 'self.p'
+    # All parameters 'p' defined here are available as 'self.p'.
+    # This means OLS objective will have a parameter `self.whitten_y`.
     parameters = {
-        'fit_intercept': [False],
+        'whitten_y': [False, True],
     }
 
-    def get_one_solution(self):
-        # Return one solution. This should be compatible with 'self.compute'.
-        return np.zeros(self.X.shape[1])
+    # Minimal version of benchopt required to run this benchmark.
+    # Bump it up if the benchmark depends on a new feature of benchopt.
+    min_benchopt_version = "1.2.1"
 
     def set_data(self, X, y):
         # The keyword arguments of this function are the keys of the `data`
         # dict in the `get_data` function of the dataset.
         # They are customizable.
         self.X, self.y = X, y
+
+        # if whitten_y, remove the mean of `y`.
+        if self.whitten_y:
+            y -= y.mean(axis=0)
 
     def compute(self, beta):
         # The arguments of this function are the outputs of the
@@ -31,8 +36,12 @@ class Objective(BaseObjective):
         diff = self.y - self.X.dot(beta)
         return .5 * diff.dot(diff)
 
-    def to_dict(self):
+    def get_one_solution(self):
+        # Return one solution. This should be compatible with 'self.compute'.
+        return np.zeros(self.X.shape[1])
+
+    def get_objective(self):
         # The output of this function are the keyword arguments
         # for the `set_objective` method of the solver.
         # They are customizable.
-        return dict(X=self.X, y=self.y, fit_intercept=self.fit_intercept)
+        return dict(X=self.X, y=self.y)

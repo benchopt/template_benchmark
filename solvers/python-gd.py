@@ -9,31 +9,24 @@ class Solver(BaseSolver):
     name = 'GD'
 
     # any parameter defined here is accessible as a class attribute
-    parameters = {'use_acceleration': [False, True]}
+    parameters = {'scale_step': [1, 2]}
 
-    def set_objective(self, X, y, fit_intercept=False):
+    def set_objective(self, X, y):
         # The arguments of this function are the results of the
-        # `to_dict` method of the objective.
+        # `get_objective` method of the objective.
         # They are customizable.
         self.X, self.y = X, y
-        self.fit_intercept = fit_intercept
 
     def run(self, n_iter):
+        # This is the function that is called to evaluate the solver.
+        # It runs the algorithm for a given a number of iterations `n_iter`.
+
         L = np.linalg.norm(self.X, ord=2) ** 2
-        n_features = self.X.shape[1]
-        w = np.zeros(n_features)
-        w_acc = np.zeros(n_features)
-        w_old = np.zeros(n_features)
-        t_new = 1
+        alpha = self.scale_step / L
+        w = np.zeros(self.X.shape[1])
         for _ in range(n_iter):
-            if self.use_acceleration:
-                t_old = t_new
-                t_new = (1 + np.sqrt(1 + 4 * t_old ** 2)) / 2
-                w_old[:] = w  # x in Beck & Teboulle (2009) notation
-                w[:] = w_acc  # y in Beck & Teboulle (2009) notation
-            w -= self.X.T.dot(self.X.dot(w) - self.y) / L
-            if self.use_acceleration:
-                w_acc[:] = w + (t_old - 1.) / t_new * (w - w_old)
+            w -= alpha * self.X.T.dot(self.X.dot(w) - self.y)
+
         self.w = w
 
     def get_result(self):
