@@ -19,7 +19,3 @@ jobs:
     uses: ./.github/workflows/test_benchmarks.yml
     with:
       benchopt_branch: benchopt@main
-  benchopt_test_version:
-    uses: ./.github/workflows/test_benchmarks.yml
-    with:
-      benchopt_version: 1.2

@@ -4,12 +4,14 @@ on:
   workflow_call:
     inputs:
       benchopt_branch:
-        description: 'Branch of benchopt to test the benchmark with'
+        description: Branch of benchopt to install to test the benchmark.
         default: benchopt@main
         required: false
         type: string
       benchopt_version:
-        description: 'If set, use a specific version of benchopt for the tests'
+        description: |
+          If set, use a specific version of benchopt for the tests,
+          thus ignoring the benchopt_branch input.
         default: git
         required: false
         type: string
