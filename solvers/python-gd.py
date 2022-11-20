@@ -9,7 +9,7 @@ class Solver(BaseSolver):
     name = 'GD'
 
     # any parameter defined here is accessible as a class attribute
-    parameters = {'scale_step': [1, 2]}
+    parameters = {'scale_step': [1, 1.99]}
 
     def set_objective(self, X, y):
         # The arguments of this function are the results of the

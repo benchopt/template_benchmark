@@ -10,9 +10,9 @@ class Objective(BaseObjective):
     name = "Ordinary Least Squares"
 
     # All parameters 'p' defined here are available as 'self.p'.
-    # This means OLS objective will have a parameter `self.whitten_y`.
+    # This means the OLS objective will have a parameter `self.whiten_y`.
     parameters = {
-        'whitten_y': [False, True],
+        'whiten_y': [False, True],
     }
 
     # Minimal version of benchopt required to run this benchmark.
@@ -25,8 +25,8 @@ class Objective(BaseObjective):
         # They are customizable.
         self.X, self.y = X, y
 
-        # if whitten_y, remove the mean of `y`.
-        if self.whitten_y:
+        # if whiten_y is True, remove the mean of `y`.
+        if self.whiten_y:
             y -= y.mean(axis=0)
 
     def compute(self, beta):
