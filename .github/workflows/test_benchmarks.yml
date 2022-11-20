@@ -8,6 +8,11 @@ on:
         default: benchopt@main
         required: false
         type: string
+      benchopt_version:
+        description: 'If set, use a specific version of benchopt for the tests'
+        default: git
+        required: false
+        type: string
 
 jobs:
   test-benchmark:
@@ -21,6 +26,7 @@ jobs:
       CONDA_ENV: 'test_env'
       VERSION_PYTHON: ${{ matrix.version_python }}
       BENCHOPT_BRANCH: ${{ inputs.benchopt_branch }}
+      BENCHOPT_VERSION: ${{ inputs.benchopt_branch }}
       BENCHOPT_DEBUG: 1
 
     defaults:
@@ -47,9 +53,14 @@ jobs:
         conda install -yq pip
 
         # Get the correct branch of benchopt
-        user=${BENCHOPT_BRANCH%@*}
-        branch=${BENCHOPT_BRANCH##*@}
-        pip install -U git+https://github.com/$user/benchopt@$branch
+        if [[ "$BENCHOPT_VERSION" == "git" ]]
+        then
+          user=${BENCHOPT_BRANCH%@*}
+          branch=${BENCHOPT_BRANCH##*@}
+          pip install -U git+https://github.com/$user/benchopt@$branch
+        else
+          pip install -U benchopt==$BENCHOPT_VERSION
+        fi
 
     - name: Test
       run: |
