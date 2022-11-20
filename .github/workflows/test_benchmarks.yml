@@ -5,7 +5,7 @@ on:
     inputs:
       benchopt_branch:
         description: 'Branch of benchopt to test the benchmark with'
-        default: 'benchopt@main'
+        default: benchopt@main
         required: false
         type: string
 
@@ -47,8 +47,8 @@ jobs:
         conda install -yq pip
 
         # Get the correct branch of benchopt
-        user=${BENCHOPT_BRANCH%:*}
-        branch=${BENCHOPT_BRANCH##*:}
+        user=${BENCHOPT_BRANCH%@*}
+        branch=${BENCHOPT_BRANCH##*@}
         pip install -U git+https://github.com/$user/benchopt@$branch
 
     - name: Test
