@@ -21,15 +21,16 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        include:
-          - os: ubuntu-latest
-          - os: macos-latest
+        os: [ubuntu-latest, macos-latest]
+        exclude:
+          # Only run OSX test on versiongit version, not on the release ones.
+          - os: ${{ inputs.benchopt_version == 'git' && '' || 'macos-latest' }}
     env:
       CONDA_ENV: 'test_env'
-      VERSION_PYTHON: ${{ matrix.version_python }}
       BENCHOPT_BRANCH: ${{ inputs.benchopt_branch }}
       BENCHOPT_VERSION: ${{ inputs.benchopt_version }}
       BENCHOPT_DEBUG: 1
+      BENCHOPT_CONDA_CMD: mamba
 
     defaults:
       run:
@@ -42,10 +43,12 @@ jobs:
     - name: Setup Conda
       uses: conda-incubator/setup-miniconda@v2
       with:
+        auto-update-conda: true
+        miniforge-variant: Mambaforge
+        use-mamba: true
+        channels: conda-forge
+        python-version: 3.9
         activate-environment: ${{ env.CONDA_ENV }}
-        python-version: 3.8
-        # Use miniforge to only get conda-forge as default channel.
-        miniforge-version: latest
 
     - run: conda info
 
@@ -60,6 +63,9 @@ jobs:
           user=${BENCHOPT_BRANCH%@*}
           branch=${BENCHOPT_BRANCH##*@}
           pip install -U git+https://github.com/$user/benchopt@$branch
+        elif [[ "$BENCHOPT_VERSION" == "latest" ]]
+        then
+          pip install -U benchopt
         else
           pip install -U benchopt==$BENCHOPT_VERSION
         fi
@@ -68,19 +74,3 @@ jobs:
       run: |
         benchopt test . --env-name bench_test_env -vl
         benchopt test . --env-name bench_test_env -vl --skip-install
-
-
-  linter-flake8:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-
-    - name: Lint with flake8
-      run: |
-        pip install flake8
-        flake8 .
