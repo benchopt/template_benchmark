@@ -72,7 +72,7 @@ jobs:
 
 
   linter-flake8:
-    if ${{ inputs.benchopt_version == 'git' }}
+    if: ${{ inputs.benchopt_version == 'git' }}
     runs-on: ubuntu-latest
 
     steps:
