@@ -55,7 +55,7 @@ jobs:
     - name: Install benchopt and its dependencies
       run: |
         conda info
-        conda install -yq pip
+        mamba install -yq pip
 
         # Get the correct branch of benchopt
         if [[ "$BENCHOPT_VERSION" == "git" ]]
