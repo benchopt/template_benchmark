@@ -15,7 +15,11 @@ on:
     - cron:  '42 7 * * *'
 
 jobs:
-  benchopt_test:
+  benchopt_dev:
     uses: benchopt/template_benchmark/.github/workflows/test_benchmarks.yml@main
     with:
       benchopt_branch: benchopt@main
+  benchopt_release:
+    uses: ./.github/workflows/test_benchmarks.yml
+    with:
+      benchopt_version: latest

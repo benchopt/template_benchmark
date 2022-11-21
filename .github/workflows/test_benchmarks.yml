@@ -21,9 +21,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        include:
-          - os: ubuntu-latest
-          - os: macos-latest
+        os: [ubuntu-latest, macos-latest]
     env:
       CONDA_ENV: 'test_env'
       VERSION_PYTHON: ${{ matrix.version_python }}
@@ -60,6 +58,9 @@ jobs:
           user=${BENCHOPT_BRANCH%@*}
           branch=${BENCHOPT_BRANCH##*@}
           pip install -U git+https://github.com/$user/benchopt@$branch
+        elif [[ "$BENCHOPT_VERSION" == "latest" ]]
+        then
+          pip install -U benchopt
         else
           pip install -U benchopt==$BENCHOPT_VERSION
         fi
@@ -71,6 +72,7 @@ jobs:
 
 
   linter-flake8:
+    if ${{ inputs.benchopt_version == 'git' }}
     runs-on: ubuntu-latest
 
     steps:
