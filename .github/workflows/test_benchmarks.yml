@@ -22,6 +22,9 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
+        exclude:
+          # Only run OSX test on versiongit version, not on the release ones.
+          - os: ${{ inputs.benchopt_version == 'git' && '' || 'macos-latest' }}
     env:
       CONDA_ENV: 'test_env'
       VERSION_PYTHON: ${{ matrix.version_python }}
@@ -69,20 +72,3 @@ jobs:
       run: |
         benchopt test . --env-name bench_test_env -vl
         benchopt test . --env-name bench_test_env -vl --skip-install
-
-
-  linter-flake8:
-    if: ${{ inputs.benchopt_version == 'git' }}
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-
-    - name: Lint with flake8
-      run: |
-        pip install flake8
-        flake8 .
