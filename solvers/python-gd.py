@@ -6,6 +6,9 @@ from benchopt import BaseSolver, safe_import_context
 with safe_import_context() as import_ctx:
     import numpy as np
 
+    # import your reusable functions here
+    from benchmark_utils.utils import reusable_function
+
 
 # The benchmark solvers must be name `Solver` and
 # derive from `BaseSolver` for `benchopt` to work properly.
