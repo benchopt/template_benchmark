@@ -31,7 +31,6 @@ jobs:
       BENCHOPT_VERSION: ${{ inputs.benchopt_version }}
       BENCHOPT_DEBUG: 1
       BENCHOPT_CONDA_CMD: mamba
-      VALUE_DEV: ${{ matrix.is_dev }}
 
     defaults:
       run:
