@@ -23,7 +23,7 @@ jobs:
       matrix:
         os: ['ubuntu-latest', 'macos-latest']
         is_dev:
-          - ${{ inputs.benchopt_version == 'git' }}
+          - ${{ inputs.benchopt_version == 'git' && 'a' || 'macos-latest' }}
         exclude:
           # Only run OSX test on version==git, not on the release ones.
           - os: 'macos-latest'
