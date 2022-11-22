@@ -24,7 +24,7 @@ jobs:
         os: ['ubuntu-latest', 'macos-latest']
         exclude:
           # Only run OSX test on version==git, not on the release ones.
-          - os: ${{ inputs.benchopt_version == 'git' && 'n' || 'macos-latest' }}
+          - os: ${{ inputs.benchopt_version == 'git' || 'macos-latest' }}
     env:
       CONDA_ENV: 'test_env'
       BENCHOPT_BRANCH: ${{ inputs.benchopt_branch }}
