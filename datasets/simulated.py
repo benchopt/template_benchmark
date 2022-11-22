@@ -1,9 +1,9 @@
 from benchopt import BaseDataset, safe_import_context
 
 
-# Protect the import with `safe_import_ctx`. This allows:
-# - To skip import to speed up autocompletion in CLI.
-# - To get requirements info when all dependencies are not installed.
+# Protect the import with `safe_import_context()`. This allows:
+# - skipping import to speed up autocompletion in CLI.
+# - getting requirements info when all dependencies are not installed.
 with safe_import_context() as import_ctx:
     import numpy as np
 
