@@ -1,14 +1,14 @@
 from benchopt import BaseObjective, safe_import_context
 
-# Protect the import with `safe_import_ctx`. This allows:
-# - To skip import to fasten autocompletion for instance.
-# - To get requirements info when all dependencies are not installed.
+# Protect the import with `safe_import_context()`. This allows:
+# - skipping import to speed up autocompletion in CLI.
+# - getting requirements info when all dependencies are not installed.
 with safe_import_context() as import_ctx:
     import numpy as np
 
 
-# The benchmark objective must be name `Objective` and
-# derive from `BaseObjective` for `benchopt` to work properly.
+# The benchmark objective must be named `Objective` and
+# inherit from `BaseObjective` for `benchopt` to work properly.
 class Objective(BaseObjective):
 
     # Name to select the objective in the CLI and to display the results.
@@ -27,8 +27,8 @@ class Objective(BaseObjective):
     min_benchopt_version = "1.3"
 
     def set_data(self, X, y):
-        # The keyword arguments of this function are the keys of the `data`
-        # dict returned by `Dataset.get_data`. This defines the benchmark's
+        # The keyword arguments of this function are the keys of the dictionary
+        # returned by `Dataset.get_data`. This defines the benchmark's
         # API to pass data. This is customizable for each benchmark.
         self.X, self.y = X, y
 
@@ -39,7 +39,7 @@ class Objective(BaseObjective):
 
     def compute(self, beta):
         # The arguments of this function are the outputs of the
-        # `Sovler.get_result`. This defines the benchmark's API to pass
+        # `Solver.get_result`. This defines the benchmark's API to pass
         # solvers' result. This is customizable for each benchmark.
         diff = self.y - self.X.dot(beta)
 
@@ -50,16 +50,16 @@ class Objective(BaseObjective):
         )
 
     def get_one_solution(self):
-        # Return one solution. This should be an object compatible
+        # Return one solution. The return value should be an object compatible
         # with `self.compute`. This is mainly for testing purposes.
         return np.zeros(self.X.shape[1])
 
     def get_objective(self):
         # Define the information to pass to each solver to run the benchmark.
         # The output of this function are the keyword arguments
-        # for the `set_objective` method of the solver. This defines the
+        # for `Solver.set_objective`. This defines the
         # benchmark's API for passing the objective to the solver.
-        # This is customizable for each benchmark.
+        # It is customizable for each benchmark.
         return dict(
             X=self.X,
             y=self.y,
