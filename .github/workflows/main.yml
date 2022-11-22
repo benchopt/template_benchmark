@@ -16,7 +16,7 @@ on:
 
 jobs:
   benchopt_dev:
-    uses: benchopt/template_benchmark/.github/workflows/test_benchmarks.yml@main
+    uses: ./.github/workflows/test_benchmarks.yml
     with:
       benchopt_branch: benchopt@main
   benchopt_release:
