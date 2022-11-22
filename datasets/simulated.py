@@ -8,7 +8,7 @@ with safe_import_context() as import_ctx:
     import numpy as np
 
     # import your reusable functions here
-    from benchmark_utils.utils import reusable_function
+    from benchmark_utils.utils import reusable_function  # noqa
 
 
 # All datasets must be name `Dataset` and derive from the `BaseDataset`
