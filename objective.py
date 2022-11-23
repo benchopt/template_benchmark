@@ -6,9 +6,6 @@ from benchopt import BaseObjective, safe_import_context
 with safe_import_context() as import_ctx:
     import numpy as np
 
-    # import your reusable functions here
-    from benchmark_utils.utils import reusable_function  # noqa
-
 
 # The benchmark objective must be name `Objective` and
 # derive from `BaseObjective` for `benchopt` to work properly.
