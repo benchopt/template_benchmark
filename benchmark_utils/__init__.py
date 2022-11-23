@@ -1,4 +1,7 @@
-# define reusable functions across the benchmark folder
-# to be imported in datafits, objective, and solvers
+# `benchmark_utils` is a module in which you can define code to reuse in
+# the benchmark objective, datasets, and solvers. The folder should have the
+# name `benchmark_utils`, and code defined inside will be importable using
+# the usual import syntax
+
 def gradient_ols(X, y, w):
-    return X.T.dot(X.dot(w) - y)
+    return X.T @ (X @ w - y)
