@@ -7,7 +7,7 @@ with safe_import_context() as import_ctx:
     import numpy as np
 
     # import your reusable functions here
-    from benchmark_utils.utils import reusable_function  # noqa
+    from benchmark_utils import gradient_ols
 
 
 # The benchmark solvers must be name `Solver` and
@@ -40,7 +40,7 @@ class Solver(BaseSolver):
         alpha = self.scale_step / L
         w = np.zeros(self.X.shape[1])
         for _ in range(n_iter):
-            w -= alpha * self.X.T.dot(self.X.dot(w) - self.y)
+            w -= alpha * gradient_ols(self.X, self.y, w)
 
         self.w = w
 
