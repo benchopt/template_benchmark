@@ -35,6 +35,8 @@ class Solver(BaseSolver):
     def run(self, n_iter):
         # This is the function that is called to evaluate the solver.
         # It runs the algorithm for a given a number of iterations `n_iter`.
+        # You can also use a `tolerance` or a `callback`, as described in
+        # https://benchopt.github.io/performance_curves.html
 
         L = np.linalg.norm(self.X, ord=2) ** 2
         alpha = self.scale_step / L
