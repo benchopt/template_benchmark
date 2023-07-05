@@ -25,7 +25,7 @@ class Dataset(BaseDataset):
         'random_state': [27],
     }
 
-    # List of packages needed to run the solver. See the corresponding
+    # List of packages needed to run the dataset. See the corresponding
     # section in objective.py
     requirements = []
 
