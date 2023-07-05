@@ -24,6 +24,10 @@ class Solver(BaseSolver):
         'scale_step': [1, 1.99],
     }
 
+    # List of packages needed to run the solver. See the corresponding
+    # section in objective.py
+    requirements = []
+
     def set_objective(self, X, y):
         # Define the information received by each solver from the objective.
         # The arguments of this function are the results of the
