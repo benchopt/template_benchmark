@@ -25,6 +25,10 @@ class Dataset(BaseDataset):
         'random_state': [27],
     }
 
+    # List of packages needed to run the solver. See the corresponding
+    # section in objective.py
+    requirements = []
+
     def get_data(self):
         # The return arguments of this function are passed as keyword arguments
         # to `Objective.set_data`. This defines the benchmark's

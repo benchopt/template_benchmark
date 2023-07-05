@@ -22,6 +22,15 @@ class Objective(BaseObjective):
         'whiten_y': [False, True],
     }
 
+    # List of packages needed to run the benchmark.
+    # They are installed with conda; to use pip, use 'pip:packagename'. To
+    # install from a specific conda channel, use 'channelname:packagename'.
+    # Packages that are not necessary to the whole benchmark but only to some
+    # solvers or datasets should be declared in Dataset or Solver (see
+    # simulated.py and python-gd.py).
+    # Example syntax: requirements = ['numpy', 'pip:jax', 'pytorch:pytorch']
+    requirements = []
+
     # Minimal version of benchopt required to run this benchmark.
     # Bump it up if the benchmark depends on a new feature of benchopt.
     min_benchopt_version = "1.3"
