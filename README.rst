@@ -21,7 +21,7 @@ reproducible the comparisons of optimization algorithms.
 This benchmark is dedicated to solver of **describe your problem**:
 
 
-$$\\min_{\beta} f(X, \\beta),$$
+$$\\min_{\\beta} f(X, \\beta),$$
 
 with 
 
