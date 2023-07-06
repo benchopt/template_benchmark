@@ -21,14 +21,13 @@ reproducible the comparisons of optimization algorithms.
 This benchmark is dedicated to solver of **describe your problem**:
 
 
-$$\\min_{\beta} f(X, \beta)$$
+$$\\min_{\beta} f(X, \beta),$$
 
-
-where $n$ (or ``n_samples``) stands for the number of samples, $p$ (or ``n_features``) stands for the number of features and
-
+with 
 
 $$X \\in \\mathbb{R}^{n \\times p} \\ , \\quad \beta \\in \\mathbb{R}^p$$
 
+where $n$ (or ``n_samples``) stands for the number of samples, $p$ (or ``n_features``) stands for the number of features.
 
 Install
 --------
