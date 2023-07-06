@@ -23,11 +23,7 @@ This benchmark is dedicated to solver of **describe your problem**:
 
 $$\\min_{\\beta} f(X, \\beta),$$
 
-with 
-
-$$X \\in \\mathbb{R}^{n \\times p} \\ , \\quad \\beta \\in \\mathbb{R}^p$$
-
-where $n$ (or ``n_samples``) stands for the number of samples, $p$ (or ``n_features``) stands for the number of features.
+where $X$ is the matrix of data and $\\beta$ is the optimization variable.
 
 Install
 --------
