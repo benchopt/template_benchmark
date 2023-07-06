@@ -50,12 +50,12 @@ class Objective(BaseObjective):
         # The arguments of this function are the outputs of the
         # `Solver.get_result`. This defines the benchmark's API to pass
         # solvers' result. This is customizable for each benchmark.
-        diff = self.y - self.X.dot(beta)
+        diff = self.y - self.X @ beta
 
         # This method can return many metrics in a dictionary. One of these
         # metrics needs to be `value` for convergence detection purposes.
         return dict(
-            value=.5 * diff.dot(diff),
+            value=.5 * diff @ diff,
         )
 
     def get_one_solution(self):
