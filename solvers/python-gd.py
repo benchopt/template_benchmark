@@ -43,10 +43,10 @@ class Solver(BaseSolver):
         # https://benchopt.github.io/performance_curves.html
 
         L = np.linalg.norm(self.X, ord=2) ** 2
-        alpha = self.scale_step / L
+        step_size = self.scale_step / L
         beta = np.zeros(self.X.shape[1])
         for _ in range(n_iter):
-            beta -= alpha * gradient_ols(self.X, self.y, beta)
+            beta -= step_size * gradient_ols(self.X, self.y, beta)
 
         self.beta = beta
 
