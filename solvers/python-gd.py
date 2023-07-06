@@ -38,15 +38,15 @@ class Solver(BaseSolver):
 
         L = np.linalg.norm(self.X, ord=2) ** 2
         alpha = self.scale_step / L
-        w = np.zeros(self.X.shape[1])
+        beta = np.zeros(self.X.shape[1])
         for _ in range(n_iter):
-            w -= alpha * gradient_ols(self.X, self.y, w)
+            beta -= alpha * gradient_ols(self.X, self.y, beta)
 
-        self.w = w
+        self.beta = beta
 
     def get_result(self):
         # Return the result from one optimization run.
         # The outputs of this function are the arguments of `Objective.compute`
         # This defines the benchmark's API for solvers' results.
         # it is customizable for each benchmark.
-        return self.w
+        return self.beta
