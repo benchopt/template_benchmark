@@ -4,4 +4,4 @@
 # the usual import syntax
 
 def gradient_ols(X, y, beta):
-    return X.T.dot(X.dot(beta) - y)
+    return X.T @ (X @ beta - y)
