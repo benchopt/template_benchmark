@@ -46,7 +46,7 @@ class Objective(BaseObjective):
         if self.whiten_y:
             y -= y.mean(axis=0)
 
-    def compute(self, beta):
+    def evaluate_result(self, beta):
         # The arguments of this function are the outputs of the
         # `Solver.get_result`. This defines the benchmark's API to pass
         # solvers' result. This is customizable for each benchmark.
