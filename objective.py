@@ -61,8 +61,8 @@ class Objective(BaseObjective):
 
     def get_one_solution(self):
         # Return one solution. The return value should be an object compatible
-        # with `self.compute`. This is mainly for testing purposes.
-        return np.zeros(self.X.shape[1])
+        # with `self.evaluate_result`. This is mainly for testing purposes.
+        return dict(beta=np.zeros(self.X.shape[1]))
 
     def get_objective(self):
         # Define the information to pass to each solver to run the benchmark.
