@@ -47,9 +47,10 @@ class Objective(BaseObjective):
             y -= y.mean(axis=0)
 
     def evaluate_result(self, beta):
-        # The arguments of this function are the outputs of the
-        # `Solver.get_result`. This defines the benchmark's API to pass
-        # solvers' result. This is customizable for each benchmark.
+        # The keyword arguments of this function are the keys of the
+        # dictionary returned by `Solver.get_result`. This defines the
+        # benchmark's API to pass solvers' result. This is customizable for
+        # each benchmark.
         diff = self.y - self.X @ beta
 
         # This method can return many metrics in a dictionary. One of these
