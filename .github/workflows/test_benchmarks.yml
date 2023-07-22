@@ -69,8 +69,31 @@ jobs:
         else
           pip install -U benchopt==$BENCHOPT_VERSION
         fi
+    - name: Check if benchopt is compatible with this benchmark
+      id: check_min_version
+      run: |
+          min_version=$(grep -r min_benchopt_version objective.py | sed "s/.*min_benchopt_version = ['\"]\([0-9\.]\+\)['\"].*/\1/")
+          if [[ -z $min_version ]]
+          then
+              min_version="0.0"
+          fi
+          if [[ "$BENCHOPT_VERSION" == "git" ]]
+          then
+            # Always test dev version
+            benchopt_version="99.0"
+          else
+            benchopt_version=$(benchopt --version)
+          fi
+          echo "$benchopt_version  and $min_version"
+          if [[ "$benchopt_version" < "$min_version" ]]
+          then
+            echo "compatible=false" >> $GITHUB_OUTPUT
+          else
+            echo "compatible=true" >> $GITHUB_OUTPUT
+          fi
 
     - name: Test
+      if: ${{ steps.check_min_version.outputs.compatible == 'true' }}
       run: |
         benchopt test . --env-name bench_test_env -vl
         benchopt test . --env-name bench_test_env -vl --skip-install
