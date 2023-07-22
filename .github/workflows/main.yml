@@ -20,7 +20,7 @@ jobs:
     with:
       benchopt_branch: benchopt@main
   benchopt_release:
-    uses: benchopt/template_benchmark/.github/workflows/test_benchmarks.yml@TST_skip_benchopt_not_compatible
+    uses: benchopt/template_benchmark/.github/workflows/test_benchmarks.yml@main
     with:
       benchopt_version: latest
   lint:
