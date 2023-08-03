@@ -72,7 +72,7 @@ jobs:
     - name: Check if benchopt is compatible with this benchmark
       id: check_min_version
       run: |
-          min_version=$(grep -r min_benchopt_version objective.py | sed "s/.*min_benchopt_version = ['\"]\([0-9\.]\+\)['\"].*/\1/")
+          min_version=$(grep min_benchopt_version objective.py | sed "s/.*min_benchopt_version = ['\"]\([[:digit:]\.]*\)['\"].*/\1/")
           if [[ -z $min_version ]]
           then
               min_version="0.0"
