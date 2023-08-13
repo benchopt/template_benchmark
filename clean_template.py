@@ -27,4 +27,3 @@ if __name__ == "__main__":
     text = text.replace('#ORG', ORG)
     text = text.replace('#BENCHMARK_NAME', BENCHMARK_NAME)
     file.write_text(text)
-
