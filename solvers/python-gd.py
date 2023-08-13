@@ -52,7 +52,8 @@ class Solver(BaseSolver):
 
     def get_result(self):
         # Return the result from one optimization run.
-        # The outputs of this function are the arguments of `Objective.compute`
+        # The outputs of this function is a dictionary which defines the
+        # keyword arguments for `Objective.evaluate_result`
         # This defines the benchmark's API for solvers' results.
         # it is customizable for each benchmark.
-        return self.beta
+        return dict(beta=self.beta)

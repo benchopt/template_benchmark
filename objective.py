@@ -46,10 +46,11 @@ class Objective(BaseObjective):
         if self.whiten_y:
             y -= y.mean(axis=0)
 
-    def compute(self, beta):
-        # The arguments of this function are the outputs of the
-        # `Solver.get_result`. This defines the benchmark's API to pass
-        # solvers' result. This is customizable for each benchmark.
+    def evaluate_result(self, beta):
+        # The keyword arguments of this function are the keys of the
+        # dictionary returned by `Solver.get_result`. This defines the
+        # benchmark's API to pass solvers' result. This is customizable for
+        # each benchmark.
         diff = self.y - self.X @ beta
 
         # This method can return many metrics in a dictionary. One of these
@@ -58,10 +59,10 @@ class Objective(BaseObjective):
             value=.5 * diff @ diff,
         )
 
-    def get_one_solution(self):
+    def get_one_result(self):
         # Return one solution. The return value should be an object compatible
-        # with `self.compute`. This is mainly for testing purposes.
-        return np.zeros(self.X.shape[1])
+        # with `self.evaluate_result`. This is mainly for testing purposes.
+        return dict(beta=np.zeros(self.X.shape[1]))
 
     def get_objective(self):
         # Define the information to pass to each solver to run the benchmark.
