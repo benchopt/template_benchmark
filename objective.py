@@ -59,7 +59,7 @@ class Objective(BaseObjective):
             value=.5 * diff @ diff,
         )
 
-    def get_one_solution(self):
+    def get_one_result(self):
         # Return one solution. The return value should be an object compatible
         # with `self.evaluate_result`. This is mainly for testing purposes.
         return dict(beta=np.zeros(self.X.shape[1]))
