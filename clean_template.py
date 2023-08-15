@@ -19,5 +19,11 @@ if __name__ == "__main__":
 
     text = '\n'.join([line for line in text.splitlines()[13:]
                       if 'template_benchmark' not in line] + [''])
-
     README.write_text(text)
+
+    # update the repo URL in the objective.py file
+    file = Path("objective.py")
+    text = file.read_text()
+    text = text.replace('#ORG', ORG)
+    text = text.replace('#BENCHMARK_NAME', BENCHMARK_NAME)
+    file.write_text(text)

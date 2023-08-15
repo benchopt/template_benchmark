@@ -14,6 +14,9 @@ class Objective(BaseObjective):
     # Name to select the objective in the CLI and to display the results.
     name = "Ordinary Least Squares"
 
+    # URL of the main repo for this benchmark.
+    url = "https://github.com/#ORG/#BENCHMARK_NAME"
+
     # List of parameters for the objective. The benchmark will consider
     # the cross product for each key in the dictionary.
     # All parameters 'p' defined here are available as 'self.p'.
