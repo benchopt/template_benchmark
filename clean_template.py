@@ -29,5 +29,5 @@ if __name__ == "__main__":
     file.write_text(text)
 
     # Remove files specific to the template repo
-    file = Path(".github") / "workflow" / "test_benchmarks.yml"
+    file = Path(".github") / "workflows" / "test_benchmarks.yml"
     file.unlink()
