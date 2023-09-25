@@ -27,3 +27,7 @@ if __name__ == "__main__":
     text = text.replace('#ORG', ORG)
     text = text.replace('#BENCHMARK_NAME', BENCHMARK_NAME)
     file.write_text(text)
+
+    # Remove files specific to the template repo
+    file = Path(".github") / "workflows" / "test_benchmarks.yml"
+    file.unlink()
