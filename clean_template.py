@@ -29,5 +29,11 @@ if __name__ == "__main__":
     file.write_text(text)
 
     # Remove files specific to the template repo
-    file = Path(".github") / "workflows" / "test_benchmarks.yml"
-    file.unlink()
+    to_remove = [
+        Path(".github") / "workflows" / "test_benchmarks.yml",
+        Path(".github") / "workflows" / "lint_benchmarks.yml",
+        Path(".") / "clean_template.py"
+    ]
+    for file in to_remove:
+        if file.exists():
+            file.unlink()
