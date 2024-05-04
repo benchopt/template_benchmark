@@ -83,8 +83,10 @@ jobs:
           echo "$benchopt_version and $min_version"
           if [[ "$benchopt_version" < "$min_version" ]]
           then
+            echo "not compatible"
             echo "compatible=false" >> $GITHUB_OUTPUT
           else
+            echo "compatible"
             echo "compatible=true" >> $GITHUB_OUTPUT
           fi
 
