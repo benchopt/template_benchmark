@@ -101,4 +101,6 @@ jobs:
       if: ${{ steps.check_min_version.outputs.compatible == 'true' }}
       run: |
         benchopt test . --env-name bench_test_env -vl $PYTEST_EXTRA_ARGS
+        benchopt clean .
+        ls -la
         benchopt test . --env-name bench_test_env -vl --skip-install $PYTEST_EXTRA_ARGS
