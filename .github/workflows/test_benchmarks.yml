@@ -15,6 +15,12 @@ on:
         default: git
         required: false
         type: string
+      extra_args:
+        description: |
+          Extra arguments to be passed in benchopt test.
+        default: ""
+        required: false
+        type: string
 
 jobs:
   test-benchmark:
@@ -29,6 +35,7 @@ jobs:
       CONDA_ENV: 'test_env'
       BENCHOPT_BRANCH: ${{ inputs.benchopt_branch }}
       BENCHOPT_VERSION: ${{ inputs.benchopt_version }}
+      PYTEST_EXTRA_ARGS: ${{ inputs.extra_args }}
       BENCHOPT_DEBUG: 1
       BENCHOPT_CONDA_CMD: mamba
 
@@ -72,7 +79,7 @@ jobs:
     - name: Check if benchopt is compatible with this benchmark
       id: check_min_version
       run: |
-          min_version=$(grep -Po 'min_benchopt_version = \K.*' objective.py || echo "0.0")
+          min_version=$(grep -Po 'min_benchopt_version = "\K[^"]*' objective.py || echo "0.0")
           if [[ "$BENCHOPT_VERSION" == "git" ]]
           then
             # Always test dev version
@@ -93,5 +100,5 @@ jobs:
     - name: Test
       if: ${{ steps.check_min_version.outputs.compatible == 'true' }}
       run: |
-        benchopt test . --env-name bench_test_env -vl
-        benchopt test . --env-name bench_test_env -vl --skip-install
+        benchopt test . --env-name bench_test_env -vl $PYTEST_EXTRA_ARGS
+        benchopt test . --env-name bench_test_env -vl --skip-install $PYTEST_EXTRA_ARGS
