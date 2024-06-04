@@ -24,9 +24,6 @@ on:
 
 # Cancel in-progress workflows when pushing
 # a new commit on the same branch
-concurrency:
-  group: ${{ github.workflow }}-${{ github.job }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   test-benchmark:
@@ -44,6 +41,10 @@ jobs:
       PYTEST_EXTRA_ARGS: ${{ inputs.extra_args }}
       BENCHOPT_DEBUG: 1
       BENCHOPT_CONDA_CMD: mamba
+
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.job }}-${{ matrix.os }}-${{ inputs.benchopt_version }}-${{ inputs.extra_args }}-${{ github.ref }}
+      cancel-in-progress: true
 
     defaults:
       run:
