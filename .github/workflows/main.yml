@@ -1,11 +1,6 @@
 name: Tests
 
 on:
-  # Cancel in-progress workflows when pushing
-  # a new commit on the same branch
-  concurrency:
-    group: ${{ github.workflow }}-${{ github.ref }}
-    cancel-in-progress: true
   push:
     branches:
       - main
@@ -18,6 +13,12 @@ on:
   schedule:
     # Run every 1st of the month at 7:42am UTC.
     - cron:  '42 7 1 * *'
+
+# Cancel in-progress workflows when pushing
+# a new commit on the same branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   benchopt_dev:

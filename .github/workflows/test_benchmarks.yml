@@ -1,11 +1,6 @@
 name: Test Benchmark
 
 on:
-  # Cancel in-progress workflows when pushing
-  # a new commit on the same branch
-  concurrency:
-    group: ${{ github.workflow }}-${{ github.ref }}
-    cancel-in-progress: true
   workflow_call:
     inputs:
       benchopt_branch:
@@ -26,6 +21,12 @@ on:
         default: ""
         required: false
         type: string
+
+# Cancel in-progress workflows when pushing
+# a new commit on the same branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test-benchmark:
