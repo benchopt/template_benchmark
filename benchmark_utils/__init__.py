@@ -12,3 +12,7 @@ with safe_import_context() as import_ctx:
 
 def gradient_ols(X, y, beta):
     return X.T @ (X @ beta - y)
+
+
+def value_ols(X, y, beta):
+    return 0.5 * np.mean((y - X @ beta) ** 2)
