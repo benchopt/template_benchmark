@@ -11,5 +11,6 @@ with safe_import_context() as import_ctx:
     from sklearn.linear_model import Lasso
 """
 
+
 def gradient_ols(X, y, beta):
     return X.T @ (X @ beta - y)
