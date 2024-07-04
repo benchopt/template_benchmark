@@ -69,10 +69,16 @@ jobs:
     - name: Install libomp on macOS
       if: matrix.os == 'macos-latest'
       run: |
-        brew install libomp
+        # Install libomp from source for arm64 architecture
+        brew uninstall libomp  # Uninstall if already installed to ensure arm64 version is used
+        brew install libomp --build-from-source
+
+        # Set environment variables for libomp
         echo 'export LDFLAGS="-L/opt/homebrew/opt/libomp/lib"' >> $GITHUB_ENV
         echo 'export CPPFLAGS="-I/opt/homebrew/opt/libomp/include"' >> $GITHUB_ENV
         echo 'export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/opt/homebrew/opt/libomp/lib' >> $GITHUB_ENV
+
+        # Create necessary symlink (adjust path as needed)
         sudo mkdir -p /usr/local/opt/libomp/lib
         sudo ln -s /opt/homebrew/opt/libomp/lib/libomp.dylib /usr/local/opt/libomp/lib/libomp.dylib
 
