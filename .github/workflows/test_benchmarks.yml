@@ -74,7 +74,7 @@ jobs:
         echo 'export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"' >> $GITHUB_ENV
         echo 'export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"' >> $GITHUB_ENV
         sudo mkdir -p /usr/local/opt/libomp/lib
-        ln -s /opt/homebrew/opt/llvm/lib/libomp.dylib /usr/local/opt/libomp/lib/libomp.dylib
+        sudo ln -s /opt/homebrew/opt/llvm/lib/libomp.dylib /usr/local/opt/libomp/lib/libomp.dylib
 
     - name: Install benchopt and its dependencies
       run: |
