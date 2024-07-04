@@ -66,6 +66,12 @@ jobs:
 
     - run: conda info
 
+    - name: Install libomp on macOS
+      if: matrix.os == 'macos-latest'
+      run: |
+        brew install libomp
+        echo 'export DYLD_LIBRARY_PATH=/usr/local/opt/libomp/lib:$DYLD_LIBRARY_PATH' >> $GITHUB_ENV
+
     - name: Install benchopt and its dependencies
       run: |
         conda info
