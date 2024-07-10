@@ -55,31 +55,36 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Setup Rosetta (macOS only)
-      if: matrix.os == 'macos-latest'
-      run: sudo softwareupdate --install-rosetta --agree-to-license
-
     - name: Install Homebrew (macOS only)
       if: matrix.os == 'macos-latest'
       run: arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+    - name: Set up Homebrew environment (macOS only)
+      if: matrix.os == 'macos-latest'
+      run: |
+        echo 'eval "$(/usr/local/bin/brew shellenv)"' >> /Users/runner/.bash_profile
+        eval "$(/usr/local/bin/brew shellenv)"
+        echo 'export PATH="/usr/local/opt/libomp/bin:$PATH"' >> $GITHUB_ENV
+        echo 'export LDFLAGS="-L/usr/local/opt/libomp/lib"' >> $GITHUB_ENV
+        echo 'export CPPFLAGS="-I/usr/local/opt/libomp/include"' >> $GITHUB_ENV
 
     - name: Install libomp (macOS only)
       if: matrix.os == 'macos-latest'
       run: |
         arch -x86_64 /usr/local/homebrew/bin/brew install libomp
         echo 'export DYLD_LIBRARY_PATH="/usr/local/opt/libomp/lib:$DYLD_LIBRARY_PATH"' >> $GITHUB_ENV
-        echo 'export LDFLAGS="-L/usr/local/opt/libomp/lib"' >> $GITHUB_ENV
-        echo 'export CPPFLAGS="-I/usr/local/opt/libomp/include"' >> $GITHUB_ENV
 
 
     - name: Set up environment variables for llvm (macOS only)
       if: matrix.os == 'macos-latest'
       run: |
         echo 'export PATH="/opt/homebrew/opt/llvm/bin:$PATH"' >> $GITHUB_ENV
-        echo 'export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"' >> $GITHUB_ENV
-        echo 'export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"' >> $GITHUB_ENV
-        echo 'export LDFLAGS="-L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++"' >> $GITHUB_ENV
-        source $GITHUB_ENV
+        echo 'export LDFLAGS="-L/opt/homebrew/opt/llvm/lib -L/usr/local/opt/libomp/lib -L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++"' >> $GITHUB_ENV
+        echo 'export CPPFLAGS="-I/opt/homebrew/opt/llvm/include -I/usr/local/opt/libomp/include"' >> $GITHUB_ENV
+
+    - name: Source environment variables (macOS only)
+      if: matrix.os == 'macos-latest'
+      run: source $GITHUB_ENV
 
     - name: Setup Conda
       uses: conda-incubator/setup-miniconda@v2
