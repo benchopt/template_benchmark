@@ -68,6 +68,8 @@ jobs:
       run: |
         arch -x86_64 /usr/local/homebrew/bin/brew install libomp
         echo 'export DYLD_LIBRARY_PATH="/usr/local/opt/libomp/lib:$DYLD_LIBRARY_PATH"' >> $GITHUB_ENV
+        echo 'export LDFLAGS="-L/usr/local/opt/libomp/lib"' >> $GITHUB_ENV
+        echo 'export CPPFLAGS="-I/usr/local/opt/libomp/include"' >> $GITHUB_ENV
 
 
     - name: Set up environment variables for llvm (macOS only)
