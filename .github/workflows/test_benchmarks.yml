@@ -65,7 +65,10 @@ jobs:
 
     - name: Install libomp (macOS only)
       if: matrix.os == 'macos-latest'
-      run: arch -x86_64 /usr/local/homebrew/bin/brew install libomp
+      run: |
+        arch -x86_64 /usr/local/homebrew/bin/brew install libomp
+        echo 'export DYLD_LIBRARY_PATH="/usr/local/opt/libomp/lib:$DYLD_LIBRARY_PATH"' >> $GITHUB_ENV
+
 
     - name: Set up environment variables for llvm (macOS only)
       if: matrix.os == 'macos-latest'
