@@ -54,6 +54,28 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
+    - name: Setup Rosetta (macOS only)
+      if: matrix.os == 'macos-latest'
+      run: sudo softwareupdate --install-rosetta --agree-to-license
+
+    - name: Install Homebrew (macOS only)
+      if: matrix.os == 'macos-latest'
+      run: arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+    - name: Install libomp (macOS only)
+      if: matrix.os == 'macos-latest'
+      run: arch -x86_64 /usr/local/homebrew/bin/brew install libomp
+
+    - name: Set up environment variables for llvm (macOS only)
+      if: matrix.os == 'macos-latest'
+      run: |
+        echo 'export PATH="/opt/homebrew/opt/llvm/bin:$PATH"' >> $GITHUB_ENV
+        echo 'export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"' >> $GITHUB_ENV
+        echo 'export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"' >> $GITHUB_ENV
+        echo 'export LDFLAGS="-L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++"' >> $GITHUB_ENV
+        source $GITHUB_ENV
+
     - name: Setup Conda
       uses: conda-incubator/setup-miniconda@v2
       with:
@@ -65,16 +87,6 @@ jobs:
         activate-environment: ${{ env.CONDA_ENV }}
 
     - run: conda info
-
-    - name: Install libomp on macOS
-      if: matrix.os == 'macos-latest'
-      run: |
-        brew update
-        brew install llvm
-        echo 'export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"' >> $GITHUB_ENV
-        echo 'export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"' >> $GITHUB_ENV
-        sudo mkdir -p /usr/local/opt/libomp/lib
-        sudo ln -s /opt/homebrew/opt/llvm/lib/libomp.dylib /usr/local/opt/libomp/lib/libomp.dylib
 
     - name: Install benchopt and its dependencies
       run: |
