@@ -69,7 +69,15 @@ jobs:
     - name: Install libomp on macOS
       if: matrix.os == 'macos-latest'
       run: |
-        brew install libomp
+        arch=$(uname -m)
+        if [[ "$arch" == "arm64" ]]; then
+          # Install llvm with x86_64 architecture using Rosetta
+          softwareupdate --install-rosetta --agree-to-license
+          arch -x86_64 /usr/local/homebrew/bin/brew install llvm
+          arch -x86_64 /usr/local/homebrew/bin/brew install libomp
+        else
+          brew install libomp
+        fi
 
     - name: Add libomp to path on macOS
       if: matrix.os == 'macos-latest'
@@ -82,7 +90,12 @@ jobs:
       if: matrix.os == 'macos-latest'
       run: |
         sudo mkdir -p /usr/local/opt/libomp/lib
-        sudo ln -s /opt/homebrew/opt/libomp/lib/libomp.dylib /usr/local/opt/libomp/lib/libomp.dylib
+        arch=$(uname -m)
+        if [[ "$arch" == "arm64" ]]; then
+          sudo ln -s /opt/homebrew/opt/libomp/lib/libomp.dylib /usr/local/opt/libomp/lib/libomp.dylib
+        else
+          sudo ln -s /usr/local/opt/libomp/lib/libomp.dylib /usr/local/opt/libomp/lib/libomp.dylib
+        fi
 
     - name: Install benchopt and its dependencies
       run: |
