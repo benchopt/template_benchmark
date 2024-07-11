@@ -66,24 +66,6 @@ jobs:
 
     - run: conda info
 
-    - name: Setup Rosetta (macOS only)
-      if: matrix.os == 'macos-latest'
-      run: sudo softwareupdate --install-rosetta --agree-to-license
-
-    - name: Install Homebrew (macOS only)
-      if: matrix.os == 'macos-latest'
-      run: arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-    - name: Setup Homebrew environment (macOS only)
-      if: matrix.os == 'macos-latest'
-      run: |
-        echo 'eval "$(/usr/local/bin/brew shellenv)"' >> $HOME/.profile
-        eval "$(/usr/local/bin/brew shellenv)"
-
-    - name: Install libomp (macOS only)
-      if: matrix.os == 'macos-latest'
-      run: arch -x86_64 /usr/local/bin/brew install libomp
-
     - name: Add libomp to path on macOS
       if: matrix.os == 'macos-latest'
       run: |
