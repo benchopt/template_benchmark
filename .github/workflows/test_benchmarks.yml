@@ -70,8 +70,7 @@ jobs:
       if: matrix.os == 'macos-latest'
       run: |
         softwareupdate --install-rosetta --agree-to-license
-        arch -x86_64 /usr/local/homebrew/bin/brew install llvm
-        arch -x86_64 /usr/local/homebrew/bin/brew install libomp
+        arch -x86_64 /usr/local/bin/brew install llvm libomp
 
     - name: Add libomp to path on macOS
       if: matrix.os == 'macos-latest'
