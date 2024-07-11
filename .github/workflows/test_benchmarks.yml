@@ -91,12 +91,6 @@ jobs:
         echo 'export CPPFLAGS="-I/usr/local/opt/libomp/include"' >> $GITHUB_ENV
         echo 'export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/usr/local/opt/libomp/lib' >> $GITHUB_ENV
 
-    - name: Link libomp on macOS
-      if: matrix.os == 'macos-latest'
-      run: |
-        sudo ln -s /usr/local/opt/libomp/lib/libomp.dylib /usr/local/opt/libomp/lib/libomp.dylib
-
-
     - name: Install benchopt and its dependencies
       run: |
         conda info
