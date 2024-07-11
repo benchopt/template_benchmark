@@ -66,9 +66,10 @@ jobs:
 
     - run: conda info
 
-    - name: Add libomp to path on macOS
+    - name: install libomp on macOS
       if: matrix.os == 'macos-latest'
       run: |
+        arch -x86_64 /usr/local/bin/brew install libomp
         echo 'export LDFLAGS="-L/usr/local/opt/libomp/lib"' >> $GITHUB_ENV
         echo 'export CPPFLAGS="-I/usr/local/opt/libomp/include"' >> $GITHUB_ENV
         echo 'export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/usr/local/opt/libomp/lib' >> $GITHUB_ENV
