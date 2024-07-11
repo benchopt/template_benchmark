@@ -74,22 +74,29 @@ jobs:
       if: matrix.os == 'macos-latest'
       run: arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+    - name: Setup Homebrew environment (macOS only)
+      if: matrix.os == 'macos-latest'
+      run: |
+        echo 'eval "$(/usr/local/bin/brew shellenv)"' >> $HOME/.profile
+        eval "$(/usr/local/bin/brew shellenv)"
+
     - name: Install libomp (macOS only)
       if: matrix.os == 'macos-latest'
-      run: arch -x86_64 /usr/local/homebrew/bin/brew install libomp
+      run: arch -x86_64 /usr/local/bin/brew install libomp
 
     - name: Add libomp to path on macOS
       if: matrix.os == 'macos-latest'
       run: |
-        echo 'export LDFLAGS="-L/opt/homebrew/opt/libomp/lib"' >> $GITHUB_ENV
-        echo 'export CPPFLAGS="-I/opt/homebrew/opt/libomp/include"' >> $GITHUB_ENV
-        echo 'export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/opt/homebrew/opt/libomp/lib' >> $GITHUB_ENV
+        echo 'export LDFLAGS="-L/usr/local/opt/libomp/lib"' >> $GITHUB_ENV
+        echo 'export CPPFLAGS="-I/usr/local/opt/libomp/include"' >> $GITHUB_ENV
+        echo 'export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/usr/local/opt/libomp/lib' >> $GITHUB_ENV
 
     - name: Link libomp on macOS
       if: matrix.os == 'macos-latest'
       run: |
         sudo mkdir -p /usr/local/opt/libomp/lib
-        sudo ln -s /opt/homebrew/opt/libomp/lib/libomp.dylib /usr/local/opt/libomp/lib/libomp.dylib
+        sudo ln -s /usr/local/opt/libomp/lib/libomp.dylib /usr/local/opt/libomp/lib/libomp.dylib
+
 
     - name: Install benchopt and its dependencies
       run: |
