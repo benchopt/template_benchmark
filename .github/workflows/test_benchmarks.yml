@@ -66,11 +66,17 @@ jobs:
 
     - run: conda info
 
-    - name: Install libomp on macOS
+    - name: Setup Rosetta (macOS only)
       if: matrix.os == 'macos-latest'
-      run: |
-        softwareupdate --install-rosetta --agree-to-license
-        arch -x86_64 /usr/local/bin/brew install llvm libomp
+      run: sudo softwareupdate --install-rosetta --agree-to-license
+
+    - name: Install Homebrew (macOS only)
+      if: matrix.os == 'macos-latest'
+      run: arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+    - name: Install libomp (macOS only)
+      if: matrix.os == 'macos-latest'
+      run: arch -x86_64 /usr/local/homebrew/bin/brew install libomp
 
     - name: Add libomp to path on macOS
       if: matrix.os == 'macos-latest'
