@@ -80,12 +80,6 @@ jobs:
         sudo mkdir -p /usr/local/opt/libomp/lib
         sudo ln -s /opt/homebrew/opt/libomp/lib/libomp.dylib /usr/local/opt/libomp/lib/libomp.dylib
 
-    - name: Link libomp on macOS
-      if: matrix.os == 'macos-latest'
-      run: |
-        sudo mkdir -p /usr/local/opt/libomp/lib
-        sudo ln -s /opt/homebrew/opt/libomp/lib/libomp.dylib /usr/local/opt/libomp/lib/libomp.dylib
-
     - name: Install benchopt and its dependencies
       run: |
         conda info
