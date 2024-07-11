@@ -66,6 +66,14 @@ jobs:
 
     - run: conda info
 
+    - name: Install and setup Homebrew on macOS
+      if: matrix.os == 'macos-latest'
+      run: |
+        arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        echo 'eval "$(/usr/local/bin/brew shellenv)"' >> $HOME/.profile
+        eval "$(/usr/local/bin/brew shellenv)"
+
+
     - name: install libomp on macOS
       if: matrix.os == 'macos-latest'
       run: |
