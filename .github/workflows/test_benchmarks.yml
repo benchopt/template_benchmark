@@ -77,6 +77,10 @@ jobs:
         echo 'export LDFLAGS="-L/opt/homebrew/opt/libomp/lib"' >> $GITHUB_ENV
         echo 'export CPPFLAGS="-I/opt/homebrew/opt/libomp/include"' >> $GITHUB_ENV
         echo 'export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/opt/homebrew/opt/libomp/lib' >> $GITHUB_ENV
+
+    - name: Link libomp on macOS
+      if: matrix.os == 'macos-latest'
+      run: |
         sudo mkdir -p /usr/local/opt/libomp/lib
         sudo ln -s /opt/homebrew/opt/libomp/lib/libomp.dylib /usr/local/opt/libomp/lib/libomp.dylib
 
