@@ -94,7 +94,6 @@ jobs:
     - name: Link libomp on macOS
       if: matrix.os == 'macos-latest'
       run: |
-        sudo mkdir -p /usr/local/opt/libomp/lib
         sudo ln -s /usr/local/opt/libomp/lib/libomp.dylib /usr/local/opt/libomp/lib/libomp.dylib
 
 
