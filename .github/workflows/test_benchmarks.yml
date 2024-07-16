@@ -15,6 +15,11 @@ on:
         default: git
         required: false
         type: string
+      python_version:
+        description: Python version to use for the tests.
+        default: "3.9"
+        required: false
+        type: string
       extra_args:
         description: |
           Extra arguments to be passed in benchopt test.
@@ -61,7 +66,7 @@ jobs:
         miniforge-variant: Mambaforge
         use-mamba: true
         channels: conda-forge
-        python-version: 3.9
+        python-version: ${{ inputs.benchopt_version }}
         activate-environment: ${{ env.CONDA_ENV }}
 
     - run: conda info
