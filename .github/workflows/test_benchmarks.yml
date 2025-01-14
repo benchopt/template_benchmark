@@ -26,6 +26,13 @@ on:
         default: ""
         required: false
         type: string
+      benchmark_dir:
+        description: |
+          Directory where the benchmark is located. This can be used to run
+          the tests for benchmarks that are sub-folders of a repo.
+        default: "."
+        required: false
+        type: string
 
 # Cancel in-progress workflows when pushing
 # a new commit on the same branch
@@ -113,7 +120,7 @@ jobs:
     - name: Test
       if: ${{ steps.check_min_version.outputs.compatible == 'true' }}
       run: |
-        benchopt test . --env-name bench_test_env -vl $PYTEST_EXTRA_ARGS
+        benchopt test ${{ inputs.benchmark_dir }} --env-name bench_test_env -vl $PYTEST_EXTRA_ARGS
         # Avoid having too large cache between two runs
-        benchopt clean .
-        benchopt test . --env-name bench_test_env -vl --skip-install $PYTEST_EXTRA_ARGS
+        benchopt clean ${{ inputs.benchmark_dir }}
+        benchopt test ${{ inputs.benchmark_dir }} --env-name bench_test_env -vl --skip-install $PYTEST_EXTRA_ARGS
