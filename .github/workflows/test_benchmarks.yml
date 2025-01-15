@@ -99,7 +99,7 @@ jobs:
     - name: Check if benchopt is compatible with this benchmark
       id: check_min_version
       run: |
-          min_version=$(grep -Po 'min_benchopt_version = "\K[^"]*' objective.py || echo "0.0")
+          min_version=$(grep -Po 'min_benchopt_version = "\K[^"]*' ${{ inputs.benchmark_dir }}/objective.py || echo "0.0")
           if [[ "$BENCHOPT_VERSION" == "git" ]]
           then
             # Always test dev version
