@@ -52,7 +52,8 @@ jobs:
       BENCHOPT_VERSION: ${{ inputs.benchopt_version }}
       PYTEST_EXTRA_ARGS: ${{ inputs.extra_args }}
       BENCHOPT_DEBUG: 1
-      BENCHOPT_CONDA_CMD: mamba
+      #TODO: Use mamba again once benchopt 1.6 is out.
+      BENCHOPT_CONDA_CMD: ${{ inputs.benchopt_version == 'latest' && 'conda' || 'mamba' }}
 
     concurrency:
       group: ${{ github.workflow }}-${{ github.job }}-${{ matrix.os }}-${{ inputs.benchopt_version }}-${{ inputs.extra_args }}-${{ github.ref }}
