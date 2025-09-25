@@ -1,7 +1,7 @@
 from benchopt import BaseObjective
 
 import numpy as np
-from benchamrk_utils import value_ols, gradient_ols
+from benchmark_utils import value_ols, gradient_ols
 
 
 # The benchmark objective must be named `Objective` and
