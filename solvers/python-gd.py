@@ -14,7 +14,7 @@ class Solver(BaseSolver):
     # Name to select the solver in the CLI and to display the results.
     name = 'GD'
 
-    # List of packages needed to run the dataset. See the corresponding
+    # List of packages needed to run the solver. See the corresponding
     # section in objective.py. This is an optional attribute.
     requirements = []
 
