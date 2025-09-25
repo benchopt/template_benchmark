@@ -1,13 +1,10 @@
-from benchopt import BaseSolver, safe_import_context
+from benchopt import BaseSolver
 
-# Protect the import with `safe_import_context()`. This allows:
-# - skipping import to speed up autocompletion in CLI.
-# - getting requirements info when all dependencies are not installed.
-with safe_import_context() as import_ctx:
-    import numpy as np
+import numpy as np
 
-    # import your reusable functions here
-    from benchmark_utils import gradient_ols
+# Reusable function can be imported from the benchmark_utils module, which is
+# dynamically installed when running the benchmark.
+from benchmark_utils import gradient_ols
 
 
 # The benchmark solvers must be named `Solver` and
@@ -17,16 +14,27 @@ class Solver(BaseSolver):
     # Name to select the solver in the CLI and to display the results.
     name = 'GD'
 
+    # List of packages needed to run the dataset. See the corresponding
+    # section in objective.py. This is an optional attribute.
+    requirements = []
+
     # List of parameters for the solver. The benchmark will consider
     # the cross product for each key in the dictionary.
     # All parameters 'p' defined here are available as 'self.p'.
     parameters = {
-        'scale_step': [1, 1.99],
+        'learning_rate': [0.1, 0.5],
     }
 
-    # List of packages needed to run the solver. See the corresponding
-    # section in objective.py
-    requirements = []
+    # Evaluation strategy for the performance curve.
+    # It describe when how and when the solver will be evaluated.
+    # You can also use `iteration`, `tolerance` or `run_once`, as described in
+    # https://benchopt.github.io/performance_curves.html
+    # For optimization solvers, we recommend to use 'callback' which can be
+    # used regularly to log the progress of the solver and implement a stopping
+    # criterion.
+    # For machine learning solvers, `run_once` is usually more adapted, as the
+    # method is only evaluated once trained.
+    sampling_strategy = 'callback'
 
     def set_objective(self, X, y):
         # Define the information received by each solver from the objective.
@@ -36,22 +44,23 @@ class Solver(BaseSolver):
         # It is customizable for each benchmark.
         self.X, self.y = X, y
 
-    def run(self, n_iter):
-        # This is the function that is called to evaluate the solver.
-        # It runs the algorithm for a given a number of iterations `n_iter`.
-        # You can also use a `tolerance` or a `callback`, as described in
-        # https://benchopt.github.io/performance_curves.html
+    def run(self, callback):
+        # This is the function that is called to run the method.
+        # When using ``sampling_strategy='callback'``, the function is provided
+        # with a ``callback`` function that must be called regularly to
+        # log the progress of the solver. The callback function returns
+        # ``True`` until the solver should stop.
+        # See https://benchopt.github.io/guide/auto_stop.html for more details.
 
-        L = np.linalg.norm(self.X, ord=2) ** 2
-        step_size = self.scale_step / L
-        beta = np.zeros(self.X.shape[1])
-        for _ in range(n_iter):
-            beta -= step_size * gradient_ols(self.X, self.y, beta)
-
-        self.beta = beta
+        self.beta = np.zeros(self.X.shape[1])
+        while callback():
+            self.beta -= self.learning_rate * gradient_ols(
+                self.X, self.y, self.beta
+            )
 
     def get_result(self):
-        # Return the result from one optimization run.
+        # Return the result of the method.
+        #
         # The outputs of this function is a dictionary which defines the
         # keyword arguments for `Objective.evaluate_result`
         # This defines the benchmark's API for solvers' results.
