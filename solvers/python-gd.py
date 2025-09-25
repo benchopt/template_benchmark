@@ -32,8 +32,8 @@ class Solver(BaseSolver):
     # For optimization solvers, we recommend to use 'callback' which can be
     # used regularly to log the progress of the solver and implement a stopping
     # criterion.
-    # For machine learning solvers, `run_once` is usually more adapted, as the
-    # method is only evaluated once trained.
+    # For machine learning methods, `run_once` is usually more adapted, to
+    # evaluate method only at the end of the training phase.
     sampling_strategy = 'callback'
 
     def set_objective(self, X, y):
