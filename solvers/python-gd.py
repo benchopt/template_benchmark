@@ -53,8 +53,9 @@ class Solver(BaseSolver):
         # See https://benchopt.github.io/guide/auto_stop.html for more details.
 
         self.beta = np.zeros(self.X.shape[1])
+        L = np.linalg.norm(self.X, ord=2)**2
         while callback():
-            self.beta -= self.learning_rate * gradient_ols(
+            self.beta -= (self.learning_rate / L) * gradient_ols(
                 self.X, self.y, self.beta
             )
 
