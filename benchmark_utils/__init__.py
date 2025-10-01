@@ -10,4 +10,4 @@ def gradient_ols(X, y, beta):
 
 
 def value_ols(X, y, beta):
-    return 0.5 * np.mean((y - X @ beta) ** 2)
+    return 0.5 * np.linalg.vector_norm(y - X @ beta) ** 2
