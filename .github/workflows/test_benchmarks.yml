@@ -89,13 +89,14 @@ jobs:
         then
           user=${BENCHOPT_BRANCH%@*}
           branch=${BENCHOPT_BRANCH##*@}
-          pip install -U git+https://github.com/$user/benchopt@$branch
+          version="@git+https://github.com/$user/benchopt@$branch"
         elif [[ "$BENCHOPT_VERSION" == "latest" ]]
         then
-          pip install -U benchopt
+          version=""
         else
-          pip install -U benchopt==$BENCHOPT_VERSION
+          version=$BENCHOPT_VERSION
         fi
+        pip install -U benchopt[test]$version
     - name: Check if benchopt is compatible with this benchmark
       id: check_min_version
       run: |
