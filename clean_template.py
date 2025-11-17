@@ -9,6 +9,9 @@ if __name__ == "__main__":
     repo_url = check_output(['git', 'remote', 'get-url', 'origin']).decode()
     name = re.split('github.com[:/]', repo_url)[1].strip()
     ORG, BENCHMARK_NAME = name.replace('.git', '').split('/')
+    if BENCHMARK_NAME == 'template_benchmark':
+        # For testing purposes
+        BENCHMARK_NAME = 'your_benchmark_name'
 
     # update readme to have the right badge
     README = Path('README.rst')
@@ -17,7 +20,7 @@ if __name__ == "__main__":
     text = text.replace('#ORG', ORG)
     text = text.replace('#BENCHMARK_NAME', BENCHMARK_NAME)
 
-    text = '\n'.join([line for line in text.splitlines()[13:]
+    text = '\n'.join([line for line in text.splitlines()[16:]
                       if 'template_benchmark' not in line] + [''])
     README.write_text(text)
 
