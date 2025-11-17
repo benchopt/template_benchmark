@@ -32,6 +32,7 @@ if __name__ == "__main__":
     to_remove = [
         Path(".github") / "workflows" / "test_benchmarks.yml",
         Path(".github") / "workflows" / "lint_benchmarks.yml",
+        Path(".github") / "workflows" / "clean_template.yml",
         Path(".") / "clean_template.py"
     ]
     for file in to_remove:

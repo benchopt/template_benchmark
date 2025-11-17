@@ -14,7 +14,7 @@ This repo should be used with the following steps:
 
 My Benchopt Benchmark
 =====================
-|Build Status| |Python 3.6+|
+|Build Status| |Python 3.10+|
 
 Benchopt is a package to simplify and make more transparent and
 reproducible comparisons of optimization methods.
@@ -47,7 +47,7 @@ Use ``benchopt run -h`` for more details about these options, or visit https://b
 
 .. |Build Template| image:: https://github.com/benchopt/template_benchmark/actions/workflows/main.yml/badge.svg
    :target: https://github.com/benchopt/template_benchmark/actions
-.. |Build Status| image:: https://github.com/#ORG/#BENCHMARK_NAME/actoiworkflows/main.yml/badge.svg
+.. |Build Status| image:: https://github.com/#ORG/#BENCHMARK_NAME/actions/workflows/main.yml/badge.svg
    :target: https://github.com/#ORG/#BENCHMARK_NAME/actions
-.. |Python 3.6+| image:: https://img.shields.io/badge/python-3.6%2B-blue
-   :target: https://www.python.org/downloads/release/python-360/
+.. |Python 3.10+| image:: https://img.shields.io/badge/python-3.10%2B-blue
+   :target: https://www.python.org/downloads/release/python-3100/
