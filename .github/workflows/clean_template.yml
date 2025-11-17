@@ -44,7 +44,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           echo "Commit all changes"
-          git commit -am="CLN remove template scripts"
+          git commit -am "CLN remove template scripts"
 
           echo "Push to main"
           git push
