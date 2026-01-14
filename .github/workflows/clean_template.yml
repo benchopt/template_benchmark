@@ -1,0 +1,52 @@
+name: Benchmark creation
+
+# This step triggers after a user creates a new repository from the template
+# It replaces the placeholder with the correct names and
+# cleans up template scripts
+
+# This will run every time we create push a commit to `main`
+# Reference https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  # Need `contents: read` to checkout the repository
+  # Need `contents: write` to update the step metadata
+  contents: write
+
+jobs:
+  clean_template:
+    name: Clean up template
+    runs-on: ubuntu-latest
+    # Only run this action when this repository isn't the template repo
+    if: ${{ !github.event.repository.is_template}}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Clean template scripts
+        run: |
+          python clean_template.py
+
+      # Make a branch, file, commit, and pull request for the learner
+      - name: Commit clean up on the repository
+        run: |
+          echo "Configure git"
+          git config user.name github-actions[bot]
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          echo "Commit all changes"
+          git commit -am "CLN remove template scripts"
+
+          echo "Push to main"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
