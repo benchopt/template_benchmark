@@ -55,7 +55,7 @@ jobs:
       BENCHOPT_CONDA_CMD: mamba
 
     concurrency:
-      group: ${{ github.workflow }}-${{ github.job }}-${{ matrix.os }}-${{ inputs.benchopt_version }}-${{ inputs.extra_args }}-${{ github.ref }}
+      group: ${{ github.workflow }}-${{ github.job }}-${{ matrix.os }}-${{ inputs.benchopt_version }}-${{ inputs.extra_args }}-${{ github.ref }}-${{ inputs.benchmark_dir }}
       cancel-in-progress: true
 
     defaults:
