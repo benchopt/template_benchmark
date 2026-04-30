@@ -45,7 +45,7 @@ Apart from the problem, options can be passed to ``benchopt run``, to restrict t
 	$ benchopt run #BENCHMARK_NAME -s solver1 -d dataset2 --max-runs 10 --n-repetitions 10
 
 
-Use ``benchopt run -h`` for more details about these options, or visit https://benchopt.github.io/api.html.
+Use ``benchopt run -h`` for more details about these options, or visit https://benchopt.github.io/get_started.html.
 
 .. |Build Template| image:: https://github.com/benchopt/template_benchmark/actions/workflows/main.yml/badge.svg
    :target: https://github.com/benchopt/template_benchmark/actions
