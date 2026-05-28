@@ -17,7 +17,6 @@ class Dataset(BaseDataset):
             (1000, 500),
             (5000, 200),
         ],
-        'random_state': [27],
     }
 
     # List of packages needed to run the dataset. See the corresponding
@@ -29,8 +28,16 @@ class Dataset(BaseDataset):
         # to `Objective.set_data`. This defines the benchmark's
         # API to pass data. It is customizable for each benchmark.
 
+        # Get a random seed to generate the data. The seed is generated from
+        # the `get_seed` method, which ensures that the same seed is used
+        # across different runs of the benchmark, and different solvers.
+        # The use of `use_repetition=True` ensures that the seed changes across
+        # different repetitions of the benchmark, which can be useful to
+        # generate different data for each repetition.
+        seed = self.get_seed(use_repetition=True)
+
         # Generate pseudorandom data using `numpy`.
-        rng = np.random.RandomState(self.random_state)
+        rng = np.random.RandomState(seed)
         X = rng.randn(self.n_samples, self.n_features)
         y = rng.randn(self.n_samples)
 

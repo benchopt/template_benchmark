@@ -50,6 +50,8 @@ class Objective(BaseObjective):
         return dict(
             value=value,
             grad_norm=np.linalg.vector_norm(grad),
+            info="a",
+            test=dict(),
         )
 
     def get_one_result(self):

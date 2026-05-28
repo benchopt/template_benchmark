@@ -2,9 +2,14 @@ name: Lint
 
 on:
   workflow_call:
+    inputs:
+      linter:
+        type: string
+        description: Linter to use for the benchmarks. For now only supports flake8 and ruff.
+        default: flake8
 
 jobs:
-  linter-flake8:
+  linter:
     runs-on: ubuntu-latest
 
     # Cancel in-progress workflows when pushing
@@ -20,7 +25,11 @@ jobs:
       with:
         python-version: 3.8
 
-    - name: Lint with flake8
+    - name: Lint with ${{ inputs.linter }}
       run: |
-        pip install flake8
-        flake8 .
+        pip install ${{ inputs.linter }}
+        if [ "${{ inputs.linter }}" = "ruff" ]; then
+          ruff check .
+        else
+          flake8 .
+        fi
