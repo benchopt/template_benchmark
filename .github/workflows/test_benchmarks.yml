@@ -17,7 +17,7 @@ on:
         type: string
       python_version:
         description: Python version to use for the tests.
-        default: "3.10"
+        default: "3.12"
         required: false
         type: string
       extra_args:
@@ -89,7 +89,7 @@ jobs:
         then
           user=${BENCHOPT_BRANCH%@*}
           branch=${BENCHOPT_BRANCH##*@}
-          pip install -U git+https://github.com/$user/benchopt@$branch
+          pip install -U "benchopt @ git+https://github.com/$user/benchopt@$branch"
         elif [[ "$BENCHOPT_VERSION" == "latest" ]]
         then
           pip install -U benchopt
