@@ -33,6 +33,15 @@ on:
         default: "."
         required: false
         type: string
+      cache_dir:
+        description: |
+          Directories to cache in the workflow. This can be used to avoid
+          repeated data downloads that might hit rate limits when running
+          CI multiple times in a row, or to fasten large download chunks
+          when installing dependencies.
+        default: ""
+        required: false
+        type: string
 
 # Cancel in-progress workflows when pushing
 # a new commit on the same branch
@@ -78,6 +87,13 @@ jobs:
         activate-environment: ${{ env.CONDA_ENV }}
 
     - run: conda info
+
+    - name: Cache directories
+      if: ${{ inputs.cache_dir != '' }}
+      uses: actions/cache@v5
+      with:
+        path: ${{ inputs.cache_dir }}
+        key: ${{ runner.os }}-${{ inputs.cache_dir }}
 
     - name: Install benchopt and its dependencies
       run: |
