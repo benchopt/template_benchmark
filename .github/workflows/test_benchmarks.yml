@@ -90,7 +90,7 @@ jobs:
 
     - name: Cache directories
       if: ${{ inputs.cache_dir != '' }}
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: ${{ inputs.cache_dir }}
         key: ${{ runner.os }}-${{ inputs.cache_dir }}
