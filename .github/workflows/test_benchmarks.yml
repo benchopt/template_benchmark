@@ -115,22 +115,16 @@ jobs:
     - name: Check if benchopt is compatible with this benchmark
       id: check_min_version
       run: |
-          min_version=$(grep -Po 'min_benchopt_version = "\K[^"]*' ${{ inputs.benchmark_dir }}/objective.py || echo "0.0")
-          if [[ "$BENCHOPT_VERSION" == "git" ]]
+          # Delegate the version comparison to benchopt (>=1.10.0). Old
+          # benchopt without `info --version` falls through to compatible=true
+          # so the test runs instead of being silently skipped.
+          if [[ "$BENCHOPT_VERSION" == "git" ]] \
+             || ! benchopt info --help | grep -q -- '--version' \
+             || benchopt info ${{ inputs.benchmark_dir }} --version
           then
-            # Always test dev version
-            benchopt_version="99.0"
-          else
-            benchopt_version=$(benchopt --version)
-          fi
-          echo "$benchopt_version and $min_version"
-          if [[ "$benchopt_version" < "$min_version" ]]
-          then
-            echo "not compatible"
-            echo "compatible=false" >> $GITHUB_OUTPUT
-          else
-            echo "compatible"
             echo "compatible=true" >> $GITHUB_OUTPUT
+          else
+            echo "compatible=false" >> $GITHUB_OUTPUT
           fi
 
     - name: Test
